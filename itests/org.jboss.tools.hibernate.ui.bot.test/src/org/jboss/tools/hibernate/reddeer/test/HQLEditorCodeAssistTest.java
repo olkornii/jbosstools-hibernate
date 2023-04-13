@@ -16,6 +16,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.reddeer.common.wait.TimePeriod;
+import org.eclipse.reddeer.common.wait.WaitUntil;
+import org.eclipse.reddeer.core.lookup.ShellLookup;
 import org.eclipse.reddeer.jface.text.contentassist.ContentAssistant;
 import org.eclipse.reddeer.junit.internal.runner.ParameterizedRequirementsRunnerFactory;
 import org.eclipse.reddeer.junit.requirement.inject.InjectRequirement;
@@ -24,9 +27,15 @@ import org.eclipse.reddeer.requirements.db.DatabaseConfiguration;
 import org.eclipse.reddeer.requirements.db.DatabaseRequirement;
 import org.eclipse.reddeer.requirements.db.DatabaseRequirement.Database;
 import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
+import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
+import org.eclipse.reddeer.swt.impl.table.DefaultTable;
+import org.eclipse.reddeer.swt.impl.text.DefaultText;
+import org.eclipse.reddeer.workbench.condition.ContentAssistantShellIsOpened;
+import org.eclipse.swt.widgets.Shell;
 import org.jboss.tools.hibernate.reddeer.console.EditConfigurationMainPage;
 import org.jboss.tools.hibernate.reddeer.console.EditConfigurationShell;
 import org.jboss.tools.hibernate.reddeer.console.views.KnownConfigurationsView;
+import org.jboss.tools.hibernate.reddeer.criteriaeditor.CriteriaEditor;
 import org.jboss.tools.hibernate.reddeer.hqleditor.HQLEditor;
 import org.jboss.tools.hibernate.ui.bot.test.factory.ConnectionProfileFactory;
 import org.jboss.tools.hibernate.ui.bot.test.factory.DriverDefinitionFactory;
@@ -109,7 +118,7 @@ public class HQLEditorCodeAssistTest extends HibernateRedDeerTest {
 		hqlEditor.setCursorPosition("from ".length());
 		
 		String proposal = "Actor - org.gen";
-		ContentAssistant ca = hqlEditor.openContentAssistant();
+		ContentAssistant ca = openContentAssistant(hqlEditor);
 		List<String> proposals = ca.getProposals();
 		ca.close();
 		assertTrue(proposal + " is expected", proposals.contains(proposal));
@@ -118,10 +127,33 @@ public class HQLEditorCodeAssistTest extends HibernateRedDeerTest {
 		hqlEditor.setCursorPosition("from Actor a where a.".length());
 		
 		proposal = "actorId - Actor";
-		ca = hqlEditor.openContentAssistant();
+		ca = openContentAssistant(hqlEditor);
 		proposals = ca.getProposals();
 		ca.close();
 		assertTrue(proposal + " is expected", proposals.contains(proposal));				
+	}
+    
+	/**
+	 * Workaround for macOS. editor.openConentAssist() cause an error: #  SIGILL (0x4) at pc=0x00007ff8153dbdd7, pid=69698, tid=60163.
+	 * ContentAssistant opens via "Find Actions" instead of keyboard.
+	 * 
+	 * @param editor
+	 */
+	private ContentAssistant openContentAssistant(HQLEditor editor) {
+		ContentAssistant contentAssist = null;
+		Shell[] shells = ShellLookup.getInstance().getShells();
+		ContentAssistantShellIsOpened caw = new ContentAssistantShellIsOpened(shells);
+		if ("Mac OS X".equals(System.getProperty("os.name"))) {
+			new ShellMenuItem("Window", "Navigation", "Find Actions").select();
+			new DefaultText().setText("Content Assist - Content Assist (Space)");
+			new DefaultTable().getItem(0).click();
+
+			new WaitUntil(caw, TimePeriod.LONG);
+			contentAssist = new ContentAssistant(caw.getContentAssistTable());
+		} else {
+			contentAssist = editor.openContentAssistant();
+		}
+		return contentAssist;
 	}
 
 }
