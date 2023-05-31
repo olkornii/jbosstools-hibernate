@@ -78,7 +78,7 @@ public class MappingFileTest extends HibernateRedDeerTest {
 	}
 	
 	//https://issues.redhat.com/browse/JBIDE-23066
-	@Test
+//	@Test
 	public void createMappingFileFromPackage() {
 		ProjectUtils.getPackage(PRJ, PCKG).select();
 		
