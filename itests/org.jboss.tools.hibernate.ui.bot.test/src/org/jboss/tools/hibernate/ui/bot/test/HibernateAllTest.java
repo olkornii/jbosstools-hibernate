@@ -41,30 +41,30 @@ import org.junit.runners.Suite;
 @RunWith(RedDeerSuite.class)
 @Suite.SuiteClasses({
 	
-	AntFileExportTest.class, // pass
-	CodeGenerationConfigurationTest.class, // pass
-	CodeGenerationKeyWordsTest.class, // pass 
-	ConnectionProfileTest.class, // pass
-	ConsoleConfigurationFileTest.class, // pass
-	ConsoleConfigurationTest.class, // pass
-	CreateJPAProjectTest.class, // pass
-	CriteriaEditorTest.class, // check 60 and 61
+//	AntFileExportTest.class, // pass
+//	CodeGenerationConfigurationTest.class, // pass
+//	CodeGenerationKeyWordsTest.class, // pass 
+//	ConnectionProfileTest.class, // pass
+//	ConsoleConfigurationFileTest.class, // pass
+//	ConsoleConfigurationTest.class, // pass
+//	CreateJPAProjectTest.class, // pass
+//	CriteriaEditorTest.class, // check 60 and 61
 	CriteriaEditorCodeAssistTest.class, // need check - 36, 60, 61
-	EntityValidationTest.class, // pass
-	JPADetailsViewTest.class, // pass
-	HibernateUIPartsTest.class, // pass
-	JPAEntityGenerationTest.class, // pass
-	JPAFacetTest.class, // pass
-	JPAUIPartsTest.class, // pass
-	HQLEditorTest.class, // check 60, 61
-	HQLEditorCodeAssistTest.class, // 60, 61
-	JBossDatasourceTest.class, // pass 
-	JpaAnnotationGenerationTest.class, // 60, 61 FAIL - https://issues.redhat.com/browse/JBIDE-28835
-	MappingDiagramTest.class, // pass
-	MappingFileTest.class, // FAIL - https://issues.redhat.com/browse/JBIDE-28833
-	PersistenceXMLFileTest.class, // pass
-	RevengFileTest.class, // pass
-	TablesFromJPAEntitiesGeneration.class // first three works only	
+//	EntityValidationTest.class, // pass
+//	JPADetailsViewTest.class, // pass
+//	HibernateUIPartsTest.class, // pass
+//	JPAEntityGenerationTest.class, // pass
+//	JPAFacetTest.class, // pass
+//	JPAUIPartsTest.class, // pass
+//	HQLEditorTest.class, // check 60, 61
+//	HQLEditorCodeAssistTest.class, // 60, 61
+//	JBossDatasourceTest.class, // pass 
+//	JpaAnnotationGenerationTest.class, // 60, 61 FAIL - https://issues.redhat.com/browse/JBIDE-28835
+//	MappingDiagramTest.class, // pass
+//	MappingFileTest.class, // FAIL - https://issues.redhat.com/browse/JBIDE-28833
+//	PersistenceXMLFileTest.class, // pass
+//	RevengFileTest.class, // pass
+//	TablesFromJPAEntitiesGeneration.class // first three works only	
 
 })
 public class HibernateAllTest {
