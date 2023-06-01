@@ -17,6 +17,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.reddeer.common.wait.AbstractWait;
+import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.jface.text.contentassist.ContentAssistant;
 import org.eclipse.reddeer.junit.internal.runner.ParameterizedRequirementsRunnerFactory;
 import org.eclipse.reddeer.junit.requirement.inject.InjectRequirement;
@@ -138,6 +140,8 @@ public class CriteriaEditorCodeAssistTest extends HibernateRedDeerTest {
 		}
 		ca = criteriaEditor.openContentAssistant();
 		proposals = ca.getProposals();
+		System.out.println("SLEEP");
+		AbstractWait.sleep(TimePeriod.VERY_LONG);
 		ca.close();
 		boolean shouldFail = true;
 		for(String p: proposals){
