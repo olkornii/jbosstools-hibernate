@@ -141,7 +141,7 @@ public class CriteriaEditorCodeAssistTest extends HibernateRedDeerTest {
 		ca = criteriaEditor.openContentAssistant();
 		proposals = ca.getProposals();
 		System.out.println("SLEEP");
-		AbstractWait.sleep(TimePeriod.VERY_LONG);
+		AbstractWait.sleep(TimePeriod.getCustom(6000));
 		ca.close();
 		boolean shouldFail = true;
 		for(String p: proposals){
